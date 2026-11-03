@@ -18,8 +18,8 @@ export default async function RenewalsPage() {
       valid_to: '2026-11-20',
       annual_value: 120000,
       status: 'active',
-      customer_name: 'Metro Diagnostics & Labs',
-      customer_phone: '+91 98201 11223',
+      customer_name: 'Commercial Facility A',
+      customer_phone: '+91 98XXX XXXXX',
       days_until_expiry: 17,
       equipment_count: 8,
     },
@@ -30,8 +30,8 @@ export default async function RenewalsPage() {
       valid_to: '2026-11-28',
       annual_value: 75000,
       status: 'active',
-      customer_name: 'Sterling Residency Co-op',
-      customer_phone: '+91 98202 33445',
+      customer_name: 'Commercial Facility B',
+      customer_phone: '+91 98XXX XXXXX',
       days_until_expiry: 25,
       equipment_count: 4,
     },
@@ -42,8 +42,8 @@ export default async function RenewalsPage() {
       valid_to: '2026-12-15',
       annual_value: 50000,
       status: 'active',
-      customer_name: 'Blue Star Towers',
-      customer_phone: '+91 98203 55667',
+      customer_name: 'Commercial Facility C',
+      customer_phone: '+91 98XXX XXXXX',
       days_until_expiry: 42,
       equipment_count: 3,
     },
@@ -87,7 +87,7 @@ export default async function RenewalsPage() {
         <CardHeader className="pb-3 border-b border-slate-100">
           <CardTitle className="text-base font-semibold">Upcoming Contract Renewals</CardTitle>
           <CardDescription className="text-xs">
-            Sourced from materialized view <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded">v_renewal_pipeline</code>
+            Verified contract lifecycle and upcoming renewal milestones
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">

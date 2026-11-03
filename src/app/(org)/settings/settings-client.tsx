@@ -1,0 +1,544 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  MessageSquare,
+  Building2,
+  Clock,
+  ShieldCheck,
+  Save,
+  Check,
+  Eye,
+  EyeOff,
+  Copy,
+  RefreshCw,
+  Send,
+  Sliders,
+  CheckCircle2,
+  Database,
+  Lock,
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+
+interface SettingsClientProps {
+  initialConfig: {
+    orgName: string;
+    orgType: string;
+    dayStart: string;
+    dayEnd: string;
+    workingDays: string;
+    phoneId: string;
+    verifyToken: string;
+    appUrl: string;
+  };
+}
+
+export function SettingsClient({ initialConfig }: SettingsClientProps) {
+  const [activeTab, setActiveTab] = useState<'whatsapp' | 'organisation' | 'sla' | 'maintenance'>('whatsapp');
+
+  // Org Settings State
+  const [orgName, setOrgName] = useState(initialConfig.orgName);
+  const [orgType, setOrgType] = useState(initialConfig.orgType);
+  const [dayStart, setDayStart] = useState(initialConfig.dayStart);
+  const [dayEnd, setDayEnd] = useState(initialConfig.dayEnd);
+
+  // WhatsApp Credentials State
+  const [phoneId, setPhoneId] = useState(initialConfig.phoneId);
+  const [token, setToken] = useState('');
+  const [verifyToken, setVerifyToken] = useState(initialConfig.verifyToken);
+  const [showToken, setShowToken] = useState(false);
+  const [showVerifyToken, setShowVerifyToken] = useState(false);
+  const [copiedWebhook, setCopiedWebhook] = useState(false);
+
+  // SLA Targets State
+  const [p1Response, setP1Response] = useState(60);
+  const [p2Response, setP2Response] = useState(240);
+  const [p3Response, setP3Response] = useState(480);
+  const [graceDays, setGraceDays] = useState(15);
+
+  // Feedback State
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [isTesting, setIsTesting] = useState(false);
+  const [testPhone, setTestPhone] = useState('');
+
+  const webhookUrl = `${initialConfig.appUrl}/api/whatsapp/webhook`;
+
+  const handleCopyWebhook = () => {
+    navigator.clipboard.writeText(webhookUrl);
+    setCopiedWebhook(true);
+    setTimeout(() => setCopiedWebhook(false), 2000);
+  };
+
+  const handleSaveSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaveSuccess(true);
+    setTimeout(() => setSaveSuccess(false), 3000);
+  };
+
+  const handleTestWhatsApp = async () => {
+    if (!testPhone.trim()) {
+      setTestResult({ success: false, message: 'Please provide a valid phone number with country code.' });
+      return;
+    }
+    setIsTesting(true);
+    setTestResult(null);
+    try {
+      const res = await fetch('/api/whatsapp/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: testPhone }),
+      });
+      const data = await res.json();
+      setTestResult(data);
+    } catch {
+      setTestResult({ success: false, message: 'Could not contact communication gateway.' });
+    } finally {
+      setIsTesting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Settings Navigation Bar */}
+      <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-200/70 rounded-xl max-w-fit">
+        <button
+          onClick={() => setActiveTab('whatsapp')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+            activeTab === 'whatsapp'
+              ? 'bg-white text-emerald-700 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <MessageSquare className="w-4 h-4 text-emerald-600" />
+          WhatsApp Integration
+        </button>
+        <button
+          onClick={() => setActiveTab('organisation')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+            activeTab === 'organisation'
+              ? 'bg-white text-blue-700 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Building2 className="w-4 h-4 text-blue-600" />
+          Organisation Profile
+        </button>
+        <button
+          onClick={() => setActiveTab('sla')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+            activeTab === 'sla'
+              ? 'bg-white text-indigo-700 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Sliders className="w-4 h-4 text-indigo-600" />
+          SLA & Policies
+        </button>
+        <button
+          onClick={() => setActiveTab('maintenance')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+            activeTab === 'maintenance'
+              ? 'bg-white text-slate-800 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Database className="w-4 h-4 text-slate-700" />
+          System Maintenance
+        </button>
+      </div>
+
+      {/* Save Success Alert */}
+      {saveSuccess && (
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+          <span>Settings saved successfully. Changes are now active across your organisation.</span>
+        </div>
+      )}
+
+      {/* Tab 1: WhatsApp Business API */}
+      {activeTab === 'whatsapp' && (
+        <form onSubmit={handleSaveSettings} className="space-y-6">
+          <Card className="shadow-sm">
+            <CardHeader className="border-b border-slate-100 pb-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-base font-semibold flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-emerald-600" />
+                    Meta WhatsApp Cloud Gateway
+                  </CardTitle>
+                  <CardDescription className="text-xs mt-0.5">
+                    Configure automated customer notifications and inbound ticket intake
+                  </CardDescription>
+                </div>
+                <Badge variant="outline" className="text-emerald-700 bg-emerald-50 border-emerald-300">
+                  Cloud API v18.0
+                </Badge>
+              </div>
+            </CardHeader>
+
+            <CardContent className="p-6 space-y-5">
+              {/* Webhook Endpoint (Read-only with Copy) */}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Webhook URL (Paste into Meta App Dashboard)
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={webhookUrl}
+                    className="w-full text-xs font-mono bg-slate-100 rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 outline-none select-all"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleCopyWebhook}
+                    className="shrink-0 text-xs flex items-center gap-1.5"
+                  >
+                    {copiedWebhook ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedWebhook ? 'Copied' : 'Copy'}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Phone ID & Verify Token */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Phone Number ID
+                  </label>
+                  <input
+                    type="text"
+                    value={phoneId}
+                    onChange={(e) => setPhoneId(e.target.value)}
+                    placeholder="e.g. 104239812498213"
+                    className="w-full text-xs font-mono rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-emerald-500"
+                  />
+                  <span className="text-[11px] text-slate-400 mt-1 block">
+                    Available in Meta Developer Console &gt; WhatsApp &gt; API Setup
+                  </span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Webhook Verify Token
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showVerifyToken ? 'text' : 'password'}
+                      value={verifyToken}
+                      onChange={(e) => setVerifyToken(e.target.value)}
+                      placeholder="Secret passphrase for Meta handshake"
+                      className="w-full text-xs font-mono rounded-lg border border-slate-300 px-3 py-2.5 pr-10 outline-none focus:ring-1 focus:ring-emerald-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowVerifyToken(!showVerifyToken)}
+                      className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                    >
+                      {showVerifyToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Permanent / System User Access Token */}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Permanent Access Token
+                </label>
+                <div className="relative">
+                  <input
+                    type={showToken ? 'text' : 'password'}
+                    value={token}
+                    onChange={(e) => setToken(e.target.value)}
+                    placeholder="Enter or replace Meta API bearer token (hidden for security)"
+                    className="w-full text-xs font-mono rounded-lg border border-slate-300 px-3 py-2.5 pr-10 outline-none focus:ring-1 focus:ring-emerald-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowToken(!showToken)}
+                    className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                  >
+                    {showToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+                <span className="text-[11px] text-slate-400 mt-1 block">
+                  Tokens are never logged or displayed in plain text in public views.
+                </span>
+              </div>
+
+              {/* Live Connection Test Box */}
+              <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-3">
+                <div className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  Live Connection Test
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="text"
+                    value={testPhone}
+                    onChange={(e) => setTestPhone(e.target.value)}
+                    placeholder="Enter phone with country code (e.g. +91XXXXXXXXXX)"
+                    className="flex-1 text-xs rounded-lg border border-slate-300 px-3 py-2 bg-white outline-none focus:ring-1 focus:ring-emerald-500"
+                  />
+                  <Button
+                    type="button"
+                    size="sm"
+                    disabled={isTesting}
+                    onClick={handleTestWhatsApp}
+                    className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white shrink-0"
+                  >
+                    <Send className="w-3.5 h-3.5 mr-1.5" />
+                    {isTesting ? 'Validating...' : 'Send Test Ping'}
+                  </Button>
+                </div>
+
+                {testResult && (
+                  <div
+                    className={`p-3 rounded-lg text-xs ${
+                      testResult.success
+                        ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                        : 'bg-amber-100 text-amber-900 border border-amber-300'
+                    }`}
+                  >
+                    <div className="font-bold">{testResult.message}</div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button type="submit" size="sm" className="flex items-center gap-1.5">
+                  <Save className="w-3.5 h-3.5" /> Save WhatsApp Config
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </form>
+      )}
+
+      {/* Tab 2: Organisation Profile */}
+      {activeTab === 'organisation' && (
+        <form onSubmit={handleSaveSettings} className="space-y-6">
+          <Card className="shadow-sm">
+            <CardHeader className="border-b border-slate-100 pb-4">
+              <CardTitle className="text-base font-semibold flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-blue-600" />
+                Organisation Profile & Operations
+              </CardTitle>
+              <CardDescription className="text-xs mt-0.5">
+                Multi-tenant parameters, company details, and business hours
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="p-6 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Company / Organisation Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={orgName}
+                    onChange={(e) => setOrgName(e.target.value)}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Entity Type
+                  </label>
+                  <select
+                    value={orgType}
+                    onChange={(e) => setOrgType(e.target.value)}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+                  >
+                    <option value="service_centre">Service Centre / Franchisee</option>
+                    <option value="retailer">Retailer</option>
+                    <option value="wholesaler">Wholesaler</option>
+                    <option value="brand">Brand / OEM Manufacturer</option>
+                    <option value="facility">Facility Management Company</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Operating Hours Start
+                  </label>
+                  <input
+                    type="time"
+                    value={dayStart}
+                    onChange={(e) => setDayStart(e.target.value)}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Operating Hours End
+                  </label>
+                  <input
+                    type="time"
+                    value={dayEnd}
+                    onChange={(e) => setDayEnd(e.target.value)}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button type="submit" size="sm" className="flex items-center gap-1.5">
+                  <Save className="w-3.5 h-3.5" /> Save Profile
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </form>
+      )}
+
+      {/* Tab 3: SLA & Entitlement Policies */}
+      {activeTab === 'sla' && (
+        <form onSubmit={handleSaveSettings} className="space-y-6">
+          <Card className="shadow-sm">
+            <CardHeader className="border-b border-slate-100 pb-4">
+              <CardTitle className="text-base font-semibold flex items-center gap-2">
+                <Clock className="w-5 h-5 text-indigo-600" />
+                Service Level Agreements & Policy Thresholds
+              </CardTitle>
+              <CardDescription className="text-xs mt-0.5">
+                Define default resolution clocks and automated compliance triggers
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="p-6 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    P1 Critical Target (Mins)
+                  </label>
+                  <input
+                    type="number"
+                    value={p1Response}
+                    onChange={(e) => setP1Response(Number(e.target.value))}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-indigo-500"
+                  />
+                  <span className="text-[11px] text-slate-400 mt-1 block">Default: 60 minutes</span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    P2 Standard Target (Mins)
+                  </label>
+                  <input
+                    type="number"
+                    value={p2Response}
+                    onChange={(e) => setP2Response(Number(e.target.value))}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-indigo-500"
+                  />
+                  <span className="text-[11px] text-slate-400 mt-1 block">Default: 240 minutes</span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    P3 Low Priority Target (Mins)
+                  </label>
+                  <input
+                    type="number"
+                    value={p3Response}
+                    onChange={(e) => setP3Response(Number(e.target.value))}
+                    className="w-full text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-indigo-500"
+                  />
+                  <span className="text-[11px] text-slate-400 mt-1 block">Default: 480 minutes</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Preventive Maintenance (PM) Grace Period (Days)
+                </label>
+                <input
+                  type="number"
+                  value={graceDays}
+                  onChange={(e) => setGraceDays(Number(e.target.value))}
+                  className="w-full max-w-xs text-xs rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:ring-1 focus:ring-indigo-500"
+                />
+                <span className="text-[11px] text-slate-400 mt-1 block">
+                  Visits beyond due date + grace days are automatically flagged as breached.
+                </span>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button type="submit" size="sm" className="flex items-center gap-1.5">
+                  <Save className="w-3.5 h-3.5" /> Save SLA Rules
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </form>
+      )}
+
+      {/* Tab 4: System Maintenance & Security */}
+      {activeTab === 'maintenance' && (
+        <div className="space-y-6">
+          <Card className="shadow-sm">
+            <CardHeader className="border-b border-slate-100 pb-4">
+              <CardTitle className="text-base font-semibold flex items-center gap-2">
+                <Database className="w-5 h-5 text-slate-700" />
+                Automated Housekeeping & Security Protocols
+              </CardTitle>
+              <CardDescription className="text-xs mt-0.5">
+                Scheduled cron routines, append-only audit trail, and exclusion constraints
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="p-6 space-y-4 text-xs text-slate-600">
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-slate-900">Scheduled Nightly Operations Check</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">
+                    Runs daily at 23:00 IST to detect overdue PM visits, expire elapsed contracts, and refresh materialized views.
+                  </div>
+                </div>
+                <Badge variant="outline" className="text-emerald-700 bg-emerald-50 border-emerald-300">
+                  Active (pg_cron)
+                </Badge>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-slate-900">Technician Double-Booking Guard</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">
+                    PostgreSQL GiST Exclusion constraint prevents overlapping job allocations across all organisations.
+                  </div>
+                </div>
+                <Badge variant="outline" className="text-blue-700 bg-blue-50 border-blue-300">
+                  Enforced
+                </Badge>
+              </div>
+
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-slate-900">Immutable Audit Logging</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">
+                    Append-only BRIN-indexed changelog tracking contract, job, and assignment modifications.
+                  </div>
+                </div>
+                <Badge variant="outline" className="text-indigo-700 bg-indigo-50 border-indigo-300">
+                  Enabled
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -5,11 +5,11 @@ import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
 import type { OrgContextValue, Organisation, OrgMembership, Person } from '@/types';
 
-// Default mock context for initial local development before database seeding
+// Default fallback context when user is not yet logged into a specific tenant
 const mockOrgContext: OrgContextValue = {
   org: {
     org_id: '00000000-0000-0000-0000-000000000001',
-    name: 'Apex Aircon & HVAC Services',
+    name: 'ServiceIQ Enterprise',
     org_type: 'service_centre',
     day_start: '09:00',
     day_end: '18:00',
@@ -22,15 +22,15 @@ const mockOrgContext: OrgContextValue = {
     org_id: '00000000-0000-0000-0000-000000000001',
     role: 'owner',
     engagement_type: 'employee',
-    emp_code: 'EMP001',
+    emp_code: 'ADMIN-01',
     is_active: true,
   },
   person: {
     person_id: '00000000-0000-0000-0000-000000000003',
-    full_name: 'Rajesh Sharma',
-    phone: '+919876543210',
-    email: 'rajesh@apexservices.in',
-    base_city: 'Mumbai',
+    full_name: 'Operations Administrator',
+    phone: '+91 98XXX XXXXX',
+    email: 'admin@serviceiq.internal',
+    base_city: 'Headquarters',
     lang_pref: 'en',
     phone_verified: true,
     id_verified: true,

@@ -91,8 +91,8 @@ export function AnimatedDashboard({
 
   // WhatsApp Simulator Modal State
   const [showSimulator, setShowSimulator] = useState(false);
-  const [simPhone, setSimPhone] = useState('+91 98200 12345');
-  const [simText, setSimText] = useState('AC in Server Room is tripping the main circuit breaker. Immediate help needed!');
+  const [simPhone, setSimPhone] = useState('');
+  const [simText, setSimText] = useState('AC in Main Server Room is showing warning indicator. Urgent service requested.');
   const [simStatus, setSimStatus] = useState<string | null>(null);
   const [isSimulating, setIsSimulating] = useState(false);
 
@@ -107,6 +107,28 @@ export function AnimatedDashboard({
       setTimeout(() => setCronSuccess(false), 3500);
     } finally {
       setIsRunningCron(false);
+    }
+  };
+
+  // Test Live WhatsApp Delivery to actual phone
+  const [testResult, setTestResult] = useState<any>(null);
+  const [isTestingLive, setIsTestingLive] = useState(false);
+
+  const handleTestLiveWhatsApp = async () => {
+    setIsTestingLive(true);
+    setTestResult(null);
+    try {
+      const res = await fetch('/api/whatsapp/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: simPhone }),
+      });
+      const data = await res.json();
+      setTestResult(data);
+    } catch (err: any) {
+      setTestResult({ success: false, message: err.message });
+    } finally {
+      setIsTestingLive(false);
     }
   };
 
@@ -195,7 +217,7 @@ export function AnimatedDashboard({
               </span>
               <span className="text-xs text-slate-400 hidden sm:inline">•</span>
               <span className="text-xs text-slate-300">
-                Track E: Telemetry & Owner Command Center
+                Operations Command Center
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
@@ -220,10 +242,10 @@ export function AnimatedDashboard({
                 className={`w-3.5 h-3.5 mr-2 ${isRunningCron ? 'animate-spin text-blue-400' : ''}`}
               />
               {isRunningCron
-                ? 'Running fn_daily_checks()...'
+                ? 'Syncing System...'
                 : cronSuccess
-                ? 'Checks Completed!'
-                : 'Run Nightly Checks'}
+                ? 'System Up to Date'
+                : 'Run System Sync'}
             </Button>
 
             {/* Inbound WhatsApp Simulator */}
@@ -249,7 +271,7 @@ export function AnimatedDashboard({
             >
               <Check className="w-4 h-4 text-emerald-400" />
               <span>
-                <strong>fn_daily_checks() executed:</strong> Materialized views <code>mv_technician_performance</code> & <code>mv_renewal_pipeline</code> refreshed. Breached PM visits and expired contracts updated.
+                <strong>System Maintenance Complete:</strong> Performance analytics, PM visit statuses, and contract renewal pipelines have been verified and updated.
               </span>
             </motion.div>
           )}
@@ -695,10 +717,10 @@ export function AnimatedDashboard({
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-slate-900">
-                      Meta WhatsApp Inbound Simulator
+                      Customer Service Gateway
                     </h3>
                     <p className="text-[11px] text-slate-500">
-                      POST to <code>/api/whatsapp/webhook</code> with customer phone lookup
+                      Direct automated messaging channel
                     </p>
                   </div>
                 </div>
@@ -725,7 +747,7 @@ export function AnimatedDashboard({
                     className="w-full text-xs rounded-lg border border-slate-300 p-2.5 outline-none focus:ring-1 focus:ring-emerald-500"
                   />
                   <span className="text-[10px] text-slate-400 mt-1 block">
-                    Matches last 10 digits in <code>party.phone</code>
+                    Format: +91XXXXXXXXXX
                   </span>
                 </div>
 
@@ -749,24 +771,75 @@ export function AnimatedDashboard({
                   </div>
                 )}
 
-                <div className="flex items-center justify-end gap-2 pt-2">
+                {testResult && (
+                  <div
+                    className={`p-3 rounded-lg text-xs border ${
+                      testResult.success
+                        ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                        : 'bg-amber-50 border-amber-200 text-amber-900'
+                    }`}
+                  >
+                    <div className="font-bold flex items-center gap-1.5 mb-1">
+                      {testResult.success ? (
+                        <>
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <span>Delivery Succeeded!</span>
+                        </>
+                      ) : (
+                        <>
+                          <AlertTriangle className="w-4 h-4 text-amber-600" />
+                          <span>WhatsApp Configuration Notice</span>
+                        </>
+                      )}
+                    </div>
+                    <p>{testResult.message}</p>
+                    {testResult.tip && (
+                      <p className="mt-1 font-semibold text-amber-800">
+                        Fix: {testResult.tip}
+                      </p>
+                    )}
+                    {testResult.instructions && (
+                      <ul className="mt-2 space-y-1 list-disc list-inside text-[11px] text-amber-900 font-mono">
+                        {testResult.instructions.map((step: string, i: number) => (
+                          <li key={i}>{step}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => setShowSimulator(false)}
+                    disabled={isTestingLive}
+                    onClick={handleTestLiveWhatsApp}
+                    className="text-xs text-emerald-700 border-emerald-300 hover:bg-emerald-50"
                   >
-                    Close
+                    <Send className="w-3.5 h-3.5 mr-1 text-emerald-600" />
+                    {isTestingLive ? 'Testing Delivery...' : 'Test Delivery to My Phone'}
                   </Button>
-                  <Button
-                    type="submit"
-                    size="sm"
-                    disabled={isSimulating}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white"
-                  >
-                    <Send className="w-3.5 h-3.5 mr-2" />
-                    {isSimulating ? 'Sending...' : 'Trigger Inbound Ticket'}
-                  </Button>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setShowSimulator(false)}
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      type="submit"
+                      size="sm"
+                      disabled={isSimulating}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                    >
+                      <Zap className="w-3.5 h-3.5 mr-1" />
+                      {isSimulating ? 'Simulating...' : 'Simulate Inbound Ticket'}
+                    </Button>
+                  </div>
                 </div>
               </form>
             </motion.div>

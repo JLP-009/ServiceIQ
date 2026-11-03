@@ -31,9 +31,9 @@ export default async function TechniciansPage() {
   }> = [
     {
       person_id: 'tech-1',
-      full_name: 'Anil Kumar',
-      phone: '+91 98200 12345',
-      base_city: 'Mumbai',
+      full_name: 'Lead Specialist A',
+      phone: '+91 98XXX XXXXX',
+      base_city: 'Metro Region 1',
       emp_code: 'TEC-101',
       is_active: true,
       skills: [
@@ -47,9 +47,9 @@ export default async function TechniciansPage() {
     },
     {
       person_id: 'tech-2',
-      full_name: 'Vikas Patel',
-      phone: '+91 98200 54321',
-      base_city: 'Thane',
+      full_name: 'Senior Technician B',
+      phone: '+91 98XXX XXXXX',
+      base_city: 'Metro Region 2',
       emp_code: 'TEC-102',
       is_active: true,
       skills: [
@@ -63,9 +63,9 @@ export default async function TechniciansPage() {
     },
     {
       person_id: 'tech-3',
-      full_name: 'Suresh Patil',
-      phone: '+91 98200 88990',
-      base_city: 'Navi Mumbai',
+      full_name: 'Field Technician C',
+      phone: '+91 98XXX XXXXX',
+      base_city: 'Metro Region 3',
       emp_code: 'TEC-103',
       is_active: true,
       skills: [
@@ -79,9 +79,9 @@ export default async function TechniciansPage() {
     },
     {
       person_id: 'tech-4',
-      full_name: 'Imran Shaikh',
-      phone: '+91 98200 77112',
-      base_city: 'Mumbai',
+      full_name: 'Field Technician D',
+      phone: '+91 98XXX XXXXX',
+      base_city: 'Metro Region 1',
       emp_code: 'TEC-104',
       is_active: true,
       skills: [{ name: 'HVAC / Air Conditioning', level: 'competent' }],
@@ -177,7 +177,7 @@ export default async function TechniciansPage() {
           <div>
             <CardTitle className="text-base font-semibold">Performance & Capabilities</CardTitle>
             <CardDescription className="text-xs">
-              Live statistics joined from <code className="text-slate-700 bg-slate-100 px-1 py-0.5 rounded">v_technician_performance</code>
+              Verified field metrics and customer ratings
             </CardDescription>
           </div>
           <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 w-64 text-xs">

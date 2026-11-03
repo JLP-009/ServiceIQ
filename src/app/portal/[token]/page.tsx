@@ -99,8 +99,8 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
         job_assignment: [
           {
             person: {
-              full_name: 'Anil Kumar',
-              phone: '+91 98200 12345',
+              full_name: 'Assigned Service Specialist',
+              phone: '+91 98XXX XXXXX',
             },
           },
         ],

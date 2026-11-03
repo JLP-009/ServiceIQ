@@ -1,86 +1,59 @@
 import React from 'react';
-import { Settings, Database, MessageSquare } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { createClient } from '@/lib/supabase/server';
+import { Settings } from 'lucide-react';
+import { SettingsClient } from './settings-client';
 
-export default function SettingsPage() {
+export const revalidate = 0;
+
+export default async function SettingsPage() {
+  const supabase = createClient();
+
+  let orgConfig = {
+    orgName: 'ServiceIQ Enterprise',
+    orgType: 'service_centre',
+    dayStart: '09:00',
+    dayEnd: '18:00',
+    workingDays: 'Mon,Tue,Wed,Thu,Fri,Sat',
+    phoneId: process.env.WHATSAPP_PHONE_ID && process.env.WHATSAPP_PHONE_ID !== 'your-whatsapp-phone-id'
+      ? process.env.WHATSAPP_PHONE_ID
+      : '',
+    verifyToken: process.env.WHATSAPP_VERIFY_TOKEN && process.env.WHATSAPP_VERIFY_TOKEN !== 'your-webhook-verify-token'
+      ? process.env.WHATSAPP_VERIFY_TOKEN
+      : '',
+    appUrl: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  };
+
+  try {
+    const { data: org } = await supabase
+      .from('organisation')
+      .select('name, org_type, day_start, day_end, working_days')
+      .limit(1)
+      .maybeSingle();
+
+    if (org) {
+      orgConfig.orgName = org.name || orgConfig.orgName;
+      orgConfig.orgType = org.org_type || orgConfig.orgType;
+      orgConfig.dayStart = org.day_start || orgConfig.dayStart;
+      orgConfig.dayEnd = org.day_end || orgConfig.dayEnd;
+      orgConfig.workingDays = org.working_days || orgConfig.workingDays;
+    }
+  } catch (err) {
+    console.warn('Settings using default org config:', err);
+  }
+
   return (
-    <div className="space-y-6 max-w-4xl mx-auto">
+    <div className="space-y-6 max-w-5xl mx-auto pb-12">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
           <Settings className="w-6 h-6 text-blue-600" />
-          Settings & Integrations
+          Settings & Communication Gateway
         </h1>
         <p className="text-sm text-slate-500 mt-1">
-          Manage system parameters, WhatsApp Business API endpoints, and database connection.
+          Manage organisation profile, SLA targets, and Meta WhatsApp Business Cloud API parameters.
         </p>
       </div>
 
-      <div className="space-y-4">
-        {/* Meta WhatsApp Integration Status */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-emerald-600" />
-                <CardTitle className="text-base font-semibold">Meta WhatsApp Business API</CardTitle>
-              </div>
-              <Badge variant="outline" className="text-emerald-700 bg-emerald-50 border-emerald-300">
-                Configured
-              </Badge>
-            </div>
-            <CardDescription className="text-xs">
-              Direct webhook endpoint: <code className="bg-slate-100 text-slate-800 px-1 py-0.5 rounded">/api/whatsapp/webhook</code>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3 text-xs text-slate-600">
-            <div className="flex justify-between py-1.5 border-b border-slate-100">
-              <span className="font-medium text-slate-500">Inbound Complaint Registration:</span>
-              <span className="font-semibold text-slate-800">Enabled (Automatic P2 Ticket Creation)</span>
-            </div>
-            <div className="flex justify-between py-1.5 border-b border-slate-100">
-              <span className="font-medium text-slate-500">Outbound Customer Notifications:</span>
-              <span className="font-semibold text-slate-800">Ticket Raised, Technician Assigned, Job Closed</span>
-            </div>
-            <div className="flex justify-between py-1.5">
-              <span className="font-medium text-slate-500">Weekly Expiry Reminders:</span>
-              <span className="font-semibold text-slate-800">Supabase Edge Function (`weekly-renewals`)</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Database & Housekeeping Checks */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Database className="w-5 h-5 text-blue-600" />
-                <CardTitle className="text-base font-semibold">PostgreSQL & pg_cron</CardTitle>
-              </div>
-              <Badge variant="outline" className="text-blue-700 bg-blue-50 border-blue-300">
-                Schema v1.0
-              </Badge>
-            </div>
-            <CardDescription className="text-xs">
-              Automated triggers, RLS isolation, and nightly cron jobs
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3 text-xs text-slate-600">
-            <div className="flex justify-between py-1.5 border-b border-slate-100">
-              <span className="font-medium text-slate-500">Nightly Checks Routine:</span>
-              <span className="font-mono text-slate-800">SELECT fn_daily_checks() (23:00 IST)</span>
-            </div>
-            <div className="flex justify-between py-1.5 border-b border-slate-100">
-              <span className="font-medium text-slate-500">Audit Logging:</span>
-              <span className="font-semibold text-slate-800">BRIN Index / Append-Only Trigger on contract, job, assignment</span>
-            </div>
-            <div className="flex justify-between py-1.5">
-              <span className="font-medium text-slate-500">Double-Booking Guard:</span>
-              <span className="font-semibold text-slate-800">GiST Exclusion Constraint on `job_assignment`</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <SettingsClient initialConfig={orgConfig} />
     </div>
   );
 }

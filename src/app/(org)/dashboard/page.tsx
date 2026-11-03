@@ -27,7 +27,7 @@ export default async function DashboardPage() {
       ticket_no: 'TKT-01031',
       resolution_due: new Date(Date.now() - 3600000 * 4).toISOString(),
       status: 'On Site',
-      tech_name: 'Anil Kumar',
+      tech_name: 'Field Technician A',
     },
     {
       job_id: 'job-2',
@@ -35,7 +35,7 @@ export default async function DashboardPage() {
       ticket_no: 'TKT-01028',
       resolution_due: new Date(Date.now() - 3600000 * 8).toISOString(),
       status: 'En Route',
-      tech_name: 'Vikas Patel',
+      tech_name: 'Field Technician B',
     },
     {
       job_id: 'job-3',
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
       ticket_no: 'TKT-01022',
       resolution_due: new Date(Date.now() - 3600000 * 14).toISOString(),
       status: 'Awaiting Parts',
-      tech_name: 'Suresh Patil',
+      tech_name: 'Field Technician C',
     },
   ];
 
@@ -75,8 +75,8 @@ export default async function DashboardPage() {
     {
       contract_id: 'c1',
       contract_no: 'AMC-2026-0042',
-      customer_name: 'Metro Diagnostics & Labs',
-      customer_phone: '+91 98201 11223',
+      customer_name: 'Commercial Facility A',
+      customer_phone: '+91 98XXX XXXXX',
       valid_to: '2026-11-20',
       days_until_expiry: 17,
       annual_value: 120000,
@@ -84,8 +84,8 @@ export default async function DashboardPage() {
     {
       contract_id: 'c2',
       contract_no: 'AMC-2026-0058',
-      customer_name: 'Sterling Residency Co-op',
-      customer_phone: '+91 98202 33445',
+      customer_name: 'Commercial Facility B',
+      customer_phone: '+91 98XXX XXXXX',
       valid_to: '2026-11-28',
       days_until_expiry: 25,
       annual_value: 75000,
@@ -93,8 +93,8 @@ export default async function DashboardPage() {
     {
       contract_id: 'c3',
       contract_no: 'AMC-2026-0081',
-      customer_name: 'Blue Star Towers',
-      customer_phone: '+91 98203 55667',
+      customer_name: 'Commercial Facility C',
+      customer_phone: '+91 98XXX XXXXX',
       valid_to: '2026-12-15',
       days_until_expiry: 42,
       annual_value: 50000,
