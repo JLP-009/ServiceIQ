@@ -57,14 +57,14 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
     <div className="space-y-6">
       {/* Search and Action Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-2 w-80 text-xs shadow-sm">
+        <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 w-80 text-xs shadow-xs">
           <Search className="w-3.5 h-3.5 text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search parts by name or part number..."
-            className="bg-transparent border-none outline-none text-slate-900 w-full placeholder:text-slate-400 text-xs"
+            className="bg-transparent border-none outline-none text-slate-900 dark:text-white w-full placeholder:text-slate-400 text-xs"
           />
         </div>
 
@@ -151,7 +151,7 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="py-3 px-4">Part Number</th>
                   <th className="py-3 px-4">Description / Name</th>
@@ -160,7 +160,7 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredParts.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="py-8 text-center text-slate-400">
@@ -169,20 +169,20 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
                   </tr>
                 ) : (
                   filteredParts.map((p) => (
-                    <tr key={p.part_id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-4 font-mono font-medium text-slate-700">
+                    <tr key={p.part_id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                      <td className="py-3 px-4 font-mono font-medium text-slate-700 dark:text-slate-300">
                         {p.part_no || '—'}
                       </td>
-                      <td className="py-3 px-4 font-semibold text-slate-900">{p.name}</td>
-                      <td className="py-3 px-4 text-slate-600">{p.uom}</td>
-                      <td className="py-3 px-4 text-right font-bold text-slate-900">
+                      <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white">{p.name}</td>
+                      <td className="py-3 px-4 text-slate-600 dark:text-slate-400">{p.uom}</td>
+                      <td className="py-3 px-4 text-right font-bold text-slate-900 dark:text-white">
                         ₹{Number(p.sell_price).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </td>
                       <td className="py-3 px-4 text-right">
                         <button
                           type="button"
                           onClick={() => handleDelete(p.part_id)}
-                          className="text-slate-400 hover:text-red-600 p-1 rounded transition-colors"
+                          className="text-slate-400 hover:text-red-600 dark:hover:text-red-400 p-1 rounded transition-colors"
                           title="Delete part"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

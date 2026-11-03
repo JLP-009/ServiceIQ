@@ -435,20 +435,20 @@ export function AnimatedDashboard({
 
       {/* SLA & PM Health Meters */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-colors">
+        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/90 shadow-sm flex flex-col justify-between transition-colors">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 SLA Compliance Rate
               </span>
-              <span className="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">92.8%</span>
+              <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">92.8%</span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full mt-2.5 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '92.8%' }}
                 transition={{ duration: 1, ease: 'easeOut' }}
-                className="bg-emerald-500 h-full rounded-full"
+                className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full"
               />
             </div>
           </div>
@@ -457,20 +457,20 @@ export function AnimatedDashboard({
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-colors">
+        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/90 shadow-sm flex flex-col justify-between transition-colors">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 PM Completion Pace
               </span>
-              <span className="text-sm font-extrabold text-blue-600 dark:text-blue-400">84.5%</span>
+              <span className="text-sm font-bold text-blue-600 dark:text-blue-400">84.5%</span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full mt-2.5 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '84.5%' }}
                 transition={{ duration: 1, ease: 'easeOut', delay: 0.1 }}
-                className="bg-blue-600 h-full rounded-full"
+                className="bg-gradient-to-r from-blue-600 to-indigo-500 h-full rounded-full"
               />
             </div>
           </div>
@@ -479,20 +479,20 @@ export function AnimatedDashboard({
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-colors">
+        <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900/90 shadow-sm flex flex-col justify-between transition-colors">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Contract Renewal Health
               </span>
-              <span className="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">88.0%</span>
+              <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">88.0%</span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full mt-2.5 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '88%' }}
                 transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                className="bg-indigo-600 h-full rounded-full"
+                className="bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full"
               />
             </div>
           </div>

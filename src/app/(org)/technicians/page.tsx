@@ -195,7 +195,7 @@ export default async function TechniciansPage() {
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="py-3 px-4">Technician</th>
                   <th className="py-3 px-4">Contact & Base</th>
@@ -206,14 +206,14 @@ export default async function TechniciansPage() {
                   <th className="py-3 px-4 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {technicians.map((t) => (
-                  <tr key={t.person_id} className="hover:bg-slate-50/80 transition-colors">
+                  <tr key={t.person_id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-slate-900">{t.full_name}</div>
+                      <div className="font-semibold text-slate-900 dark:text-white">{t.full_name}</div>
                       <div className="text-[11px] text-slate-400 font-mono">{t.emp_code}</div>
                     </td>
-                    <td className="py-3 px-4 text-slate-600">
+                    <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                       <div className="flex items-center gap-1.5">
                         <Phone className="w-3 h-3 text-slate-400" />
                         <span>{t.phone}</span>
@@ -236,9 +236,9 @@ export default async function TechniciansPage() {
                         ))}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-center font-bold text-slate-900">
+                    <td className="py-3 px-4 text-center font-bold text-slate-900 dark:text-white">
                       {t.avg_rating ? (
-                        <span className="inline-flex items-center gap-1 text-slate-800">
+                        <span className="inline-flex items-center gap-1 text-slate-800 dark:text-slate-200">
                           <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                           {t.avg_rating}
                         </span>
@@ -247,18 +247,18 @@ export default async function TechniciansPage() {
                       )}
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className="font-semibold text-slate-900">{t.jobs_completed}</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">{t.jobs_completed}</span>
                       <span className="text-slate-400 text-[11px]"> / {t.jobs_assigned}</span>
                     </td>
                     <td className="py-3 px-4 text-center">
                       {t.sla_breaches > 0 ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-100 text-red-700">
+                        <Badge variant="destructive" className="text-[10px] px-2 py-0">
                           {t.sla_breaches}
-                        </span>
+                        </Badge>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-700">
+                        <Badge variant="success" className="text-[10px] px-2 py-0">
                           0
-                        </span>
+                        </Badge>
                       )}
                     </td>
                     <td className="py-3 px-4 text-right">

@@ -95,7 +95,7 @@ export default async function RenewalsPage() {
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="py-3 px-4">Contract No</th>
                   <th className="py-3 px-4">Customer</th>
@@ -106,24 +106,24 @@ export default async function RenewalsPage() {
                   <th className="py-3 px-4 text-right">Annual Value</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {renewals.map((r) => (
-                  <tr key={r.contract_id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3 px-4 font-semibold text-slate-900">{r.contract_no}</td>
-                    <td className="py-3 px-4 text-slate-700">{r.customer_name}</td>
-                    <td className="py-3 px-4 text-slate-500 font-mono">{r.customer_phone || '—'}</td>
-                    <td className="py-3 px-4 text-center">{r.equipment_count} units</td>
-                    <td className="py-3 px-4 text-slate-600">{r.valid_to}</td>
+                  <tr key={r.contract_id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-slate-900 dark:text-white">{r.contract_no}</td>
+                    <td className="py-3 px-4 text-slate-700 dark:text-slate-300 font-medium">{r.customer_name}</td>
+                    <td className="py-3 px-4 text-slate-500 dark:text-slate-400 font-mono">{r.customer_phone || '—'}</td>
+                    <td className="py-3 px-4 text-center text-slate-600 dark:text-slate-400">{r.equipment_count} units</td>
+                    <td className="py-3 px-4 text-slate-600 dark:text-slate-400">{r.valid_to}</td>
                     <td className="py-3 px-4">
                       {r.days_until_expiry <= 30 ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800">
+                        <Badge variant="warning" className="text-[10px] px-2 py-0">
                           {r.days_until_expiry} days
-                        </span>
+                        </Badge>
                       ) : (
-                        <span className="text-slate-600">{r.days_until_expiry} days</span>
+                        <span className="text-slate-600 dark:text-slate-400 text-xs">{r.days_until_expiry} days</span>
                       )}
                     </td>
-                    <td className="py-3 px-4 text-right font-bold text-slate-900">
+                    <td className="py-3 px-4 text-right font-bold text-slate-900 dark:text-white">
                       ₹{Number(r.annual_value).toLocaleString('en-IN')}
                     </td>
                   </tr>

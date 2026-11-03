@@ -39,13 +39,13 @@ export function Sidebar() {
   return (
     <aside className="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col h-screen select-none transition-colors">
       {/* Brand Header */}
-      <div className="h-16 border-b border-slate-200 dark:border-slate-800 flex items-center px-6 gap-3">
-        <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-sm font-bold">
+      <div className="h-16 border-b border-slate-200/80 dark:border-slate-800/80 flex items-center px-6 gap-3">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold">
           <ShieldCheck className="w-5 h-5" />
         </div>
         <div>
-          <div className="font-bold text-slate-900 dark:text-white leading-none">ServiceIQ</div>
-          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 truncate max-w-[140px]">
+          <div className="font-extrabold text-slate-900 dark:text-white leading-none tracking-tight">ServiceIQ</div>
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 truncate max-w-[140px] font-medium">
             {org?.name || 'Organisation'}
           </div>
         </div>
@@ -61,13 +61,13 @@ export function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                'flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition-all',
                 isActive
-                  ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 font-semibold shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                  ? 'bg-blue-50/90 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 font-semibold shadow-xs border border-blue-200/60 dark:border-blue-900/60'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-900/80 hover:text-slate-900 dark:hover:text-slate-100'
               )}
             >
-              <Icon className={cn('w-4 h-4', isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500')} />
+              <Icon className={cn('w-4 h-4 transition-colors', isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500')} />
               <span>{item.label}</span>
             </Link>
           );
