@@ -191,9 +191,9 @@ export function Header() {
 
           {/* Notification Dropdown Drawer */}
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-84 sm:w-96 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
+            <div className="absolute right-0 mt-2.5 w-84 sm:w-96 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5 dark:ring-white/5">
               {/* Header */}
-              <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-850/50">
+              <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/95">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-xs text-slate-900 dark:text-white flex items-center gap-1.5">
@@ -201,9 +201,9 @@ export function Header() {
                       Live Operations Center
                     </span>
                     {unreadCount > 0 && (
-                      <Badge variant="default" className="text-[10px] px-1.5 py-0 font-semibold bg-blue-600">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
                         {unreadCount} new
-                      </Badge>
+                      </span>
                     )}
                   </div>
 
@@ -212,34 +212,34 @@ export function Header() {
                       <button
                         type="button"
                         onClick={markAllAsRead}
-                        className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                        className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors flex items-center gap-1"
                         title="Mark all as read"
                       >
-                        <CheckCheck className="w-3 h-3" /> Mark all read
+                        <CheckCheck className="w-3.5 h-3.5" /> Mark all read
                       </button>
                     )}
                     {notifications.length > 0 && (
                       <button
                         type="button"
                         onClick={clearAll}
-                        className="text-[11px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
+                        className="text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors p-1 rounded"
                         title="Clear all notifications"
                       >
-                        <Trash2 className="w-3 h-3" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     )}
                   </div>
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex items-center gap-1 mt-3">
+                <div className="flex items-center gap-1 mt-3 bg-slate-200/60 dark:bg-slate-800 p-0.5 rounded-lg text-[11px]">
                   <button
                     type="button"
                     onClick={() => setFilter('all')}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
+                    className={`flex-1 py-1 px-2 rounded-md font-medium text-center transition-all ${
                       filter === 'all'
-                        ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800'
+                        ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                   >
                     All ({notifications.length})
@@ -247,10 +247,10 @@ export function Header() {
                   <button
                     type="button"
                     onClick={() => setFilter('unread')}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
+                    className={`flex-1 py-1 px-2 rounded-md font-medium text-center transition-all ${
                       filter === 'unread'
-                        ? 'bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-xs'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800'
+                        ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-300 shadow-xs font-semibold'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                   >
                     Unread ({unreadCount})
@@ -258,13 +258,13 @@ export function Header() {
                   <button
                     type="button"
                     onClick={() => setFilter('critical')}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all ${
+                    className={`flex-1 py-1 px-2 rounded-md font-medium text-center transition-all ${
                       filter === 'critical'
-                        ? 'bg-white dark:bg-slate-800 text-rose-600 dark:text-rose-400 shadow-xs'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800'
+                        ? 'bg-white dark:bg-slate-700 text-rose-600 dark:text-rose-300 shadow-xs font-semibold'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                   >
-                    SLA Breaches
+                    Breaches
                   </button>
                 </div>
               </div>
@@ -281,8 +281,8 @@ export function Header() {
                     <div
                       key={n.id}
                       onClick={() => markAsRead(n.id)}
-                      className={`p-3.5 hover:bg-slate-50/80 dark:hover:bg-slate-800/60 transition-colors cursor-pointer flex items-start gap-3 relative group ${
-                        n.unread ? 'bg-blue-50/30 dark:bg-blue-950/20' : ''
+                      className={`p-3.5 hover:bg-slate-50 dark:hover:bg-slate-850/60 dark:hover:bg-slate-800/50 transition-colors cursor-pointer flex items-start gap-3 relative group ${
+                        n.unread ? 'bg-blue-50/40 dark:bg-blue-950/25' : ''
                       }`}
                     >
                       <div className="mt-0.5 w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-slate-700/50">
@@ -293,22 +293,22 @@ export function Header() {
                           <Link
                             href={n.link}
                             onClick={() => setShowNotifications(false)}
-                            className="text-xs font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 truncate block"
+                            className="text-xs font-semibold text-slate-900 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 truncate block transition-colors"
                           >
                             {n.title}
                           </Link>
                         </div>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1 leading-snug">
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-1 leading-snug">
                           {n.subtitle}
                         </p>
                         <div className="flex items-center gap-2 mt-1.5">
-                          <span className="text-[10px] text-slate-400 font-medium">
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
                             {n.time}
                           </span>
                           {n.severity === 'critical' && (
-                            <Badge variant="destructive" className="text-[9px] px-1 py-0 uppercase">
+                            <span className="text-[9px] px-1.5 py-0.2 rounded font-bold uppercase tracking-wider bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900">
                               Critical
-                            </Badge>
+                            </span>
                           )}
                         </div>
                       </div>
@@ -336,7 +336,7 @@ export function Header() {
                       </div>
 
                       {n.unread && (
-                        <span className="w-2 h-2 rounded-full bg-blue-600 absolute right-3.5 top-5 group-hover:hidden" />
+                        <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 absolute right-3.5 top-5 group-hover:hidden" />
                       )}
                     </div>
                   ))
@@ -344,8 +344,8 @@ export function Header() {
               </div>
 
               {/* Footer */}
-              <div className="p-3 bg-slate-50 dark:bg-slate-950/50 border-t border-slate-100 dark:border-slate-800 text-center flex items-center justify-between px-4">
-                <span className="text-[11px] text-slate-400">
+              <div className="p-3 bg-slate-50/80 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 text-center flex items-center justify-between px-4">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
                   Real-time PostgreSQL push
                 </span>
                 <Link
