@@ -1,5 +1,6 @@
 import React from 'react';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { isSupabaseConfigured } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import {
   ShieldCheck,
@@ -25,110 +26,126 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
   const token = params.token;
   if (!token) notFound();
 
-  const supabase = createAdminClient();
+  let displayTicket: any = null;
 
-  // Fetch ticket and associated jobs
-  const { data: ticket } = await supabase
-    .from('ticket')
-    .select(`
-      ticket_id,
-      ticket_no,
-      status,
-      reported_at,
-      fault_description,
-      priority,
-      public_token,
-      job (
-        job_id,
-        job_no,
-        scheduled_start,
-        actual_start,
-        actual_end,
-        customer_rating,
-        customer_feedback,
-        technician_notes,
-        workflow_state (
-          code,
-          label,
-          is_terminal
-        ),
-        job_assignment (
-          person (
-            full_name,
-            phone
+  // Real-time Database Resolution via Supabase Admin Client
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createAdminClient();
+      const { data: ticket, error } = await supabase
+        .from('ticket')
+        .select(`
+          ticket_id,
+          ticket_no,
+          status,
+          reported_at,
+          fault_description,
+          priority,
+          public_token,
+          job (
+            job_id,
+            job_no,
+            scheduled_start,
+            actual_start,
+            actual_end,
+            customer_rating,
+            customer_feedback,
+            technician_notes,
+            workflow_state (
+              code,
+              label,
+              is_terminal
+            ),
+            job_assignment (
+              person (
+                full_name,
+                phone
+              )
+            ),
+            job_status_event (
+              event_id,
+              changed_at,
+              to_state_id,
+              workflow_state:to_state_id (
+                label,
+                code
+              )
+            )
           )
-        ),
-        job_status_event (
-          event_id,
-          changed_at,
-          to_state_id,
-          workflow_state:to_state_id (
-            label,
-            code
-          )
-        )
-      )
-    `)
-    .eq('public_token', token)
-    .maybeSingle();
+        `)
+        .eq('public_token', token)
+        .maybeSingle();
 
-  // Offline / Demo fallback if ticket not found in local db
-  const displayTicket = ticket || {
-    ticket_id: 'demo-ticket',
-    ticket_no: 'TKT-01045',
-    status: 'in_progress',
-    reported_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-    fault_description: 'AC unit cooling is low and making rattling noise in meeting room 2.',
-    priority: 'P2',
-    public_token: token,
-    job: [
-      {
-        job_id: 'demo-job',
-        job_no: 'JOB-01045',
-        scheduled_start: new Date(Date.now() - 3600000 * 2).toISOString(),
-        actual_start: new Date(Date.now() - 3600000 * 1).toISOString(),
-        actual_end: null,
-        customer_rating: null,
-        customer_feedback: null,
-        technician_notes: 'Compressor belt adjusted; refilling refrigerant gas.',
-        workflow_state: {
-          code: 'on_site',
-          label: 'On Site',
-          is_terminal: false,
-        },
-        job_assignment: [
-          {
-            person: {
-              full_name: 'Assigned Service Specialist',
-              phone: '+91 98XXX XXXXX',
+      if (ticket) {
+        displayTicket = ticket;
+      } else if (!error && token !== 'demo-token') {
+        // Enforce strict 404 when database is active and token does not exist
+        notFound();
+      }
+    } catch (err) {
+      console.warn('Live ticket lookup notice:', err);
+    }
+  }
+
+  // Graceful offline fallback preview (only when offline or testing /portal/demo-token)
+  if (!displayTicket) {
+    displayTicket = {
+      ticket_id: 'demo-ticket',
+      ticket_no: 'TKT-01045',
+      status: 'in_progress',
+      reported_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+      fault_description: 'AC unit cooling is low and making rattling noise in meeting room 2.',
+      priority: 'P2',
+      public_token: token,
+      job: [
+        {
+          job_id: 'demo-job',
+          job_no: 'JOB-01045',
+          scheduled_start: new Date(Date.now() - 3600000 * 2).toISOString(),
+          actual_start: new Date(Date.now() - 3600000 * 1).toISOString(),
+          actual_end: null,
+          customer_rating: null,
+          customer_feedback: null,
+          technician_notes: 'Compressor belt adjusted; refilling refrigerant gas.',
+          workflow_state: {
+            code: 'on_site',
+            label: 'On Site',
+            is_terminal: false,
+          },
+          job_assignment: [
+            {
+              person: {
+                full_name: 'Assigned Service Specialist',
+                phone: '+91 98XXX XXXXX',
+              },
             },
-          },
-        ],
-        job_status_event: [
-          {
-            event_id: 'e1',
-            changed_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-            workflow_state: { label: 'Ticket Registered', code: 'open' },
-          },
-          {
-            event_id: 'e2',
-            changed_at: new Date(Date.now() - 3600000 * 3).toISOString(),
-            workflow_state: { label: 'Technician Assigned', code: 'assigned' },
-          },
-          {
-            event_id: 'e3',
-            changed_at: new Date(Date.now() - 3600000 * 2).toISOString(),
-            workflow_state: { label: 'En Route to Site', code: 'en_route' },
-          },
-          {
-            event_id: 'e4',
-            changed_at: new Date(Date.now() - 3600000 * 1).toISOString(),
-            workflow_state: { label: 'Work Started On Site', code: 'on_site' },
-          },
-        ],
-      },
-    ],
-  };
+          ],
+          job_status_event: [
+            {
+              event_id: 'e1',
+              changed_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+              workflow_state: { label: 'Ticket Registered', code: 'open' },
+            },
+            {
+              event_id: 'e2',
+              changed_at: new Date(Date.now() - 3600000 * 3).toISOString(),
+              workflow_state: { label: 'Technician Assigned', code: 'assigned' },
+            },
+            {
+              event_id: 'e3',
+              changed_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+              workflow_state: { label: 'En Route to Site', code: 'en_route' },
+            },
+            {
+              event_id: 'e4',
+              changed_at: new Date(Date.now() - 3600000 * 1).toISOString(),
+              workflow_state: { label: 'Work Started On Site', code: 'on_site' },
+            },
+          ],
+        },
+      ],
+    };
+  }
 
   const jobs = Array.isArray(displayTicket.job)
     ? displayTicket.job

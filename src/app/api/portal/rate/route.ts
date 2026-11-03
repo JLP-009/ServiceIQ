@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { isSupabaseConfigured } from '@/lib/supabase/server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,6 +11,14 @@ export async function POST(req: NextRequest) {
         { error: 'Invalid parameters. Token and rating (1-5) are required.' },
         { status: 400 }
       );
+    }
+
+    // Support offline development preview
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json({
+        success: true,
+        message: 'Review recorded successfully (local preview mode).',
+      });
     }
 
     const supabase = createAdminClient();
