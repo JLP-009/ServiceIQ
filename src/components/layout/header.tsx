@@ -344,10 +344,7 @@ export function Header() {
               </div>
 
               {/* Footer */}
-              <div className="p-3 bg-slate-50/80 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 text-center flex items-center justify-between px-4">
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">
-                  Real-time PostgreSQL push
-                </span>
+              <div className="p-3 bg-slate-50/80 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 text-center">
                 <Link
                   href="/dashboard"
                   onClick={() => setShowNotifications(false)}

@@ -46,7 +46,7 @@ export default function LoginPage() {
               href="/dashboard"
               className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 flex items-center justify-center gap-1"
             >
-              Enter Dev Demo Dashboard <ArrowRight className="w-3.5 h-3.5" />
+              Access ServiceIQ Dashboard <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

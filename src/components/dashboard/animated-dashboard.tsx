@@ -244,14 +244,14 @@ export function AnimatedDashboard({
                 : 'Run System Sync'}
             </Button>
 
-            {/* Inbound WhatsApp Simulator */}
+            {/* WhatsApp Event Gateway Button */}
             <Button
               onClick={() => setShowSimulator(true)}
               size="sm"
               className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs font-semibold shadow-md border border-emerald-400/30"
             >
               <MessageSquare className="w-3.5 h-3.5 mr-2" />
-              Simulate WhatsApp Event
+              WhatsApp Event
             </Button>
           </div>
         </div>
@@ -713,10 +713,10 @@ export function AnimatedDashboard({
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                      Customer Service Gateway
+                      WhatsApp Gateway Event
                     </h3>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                      Direct automated messaging channel
+                      Inbound customer ticket registration
                     </p>
                   </div>
                 </div>
@@ -834,7 +834,7 @@ export function AnimatedDashboard({
                       className="bg-emerald-600 hover:bg-emerald-700 text-white"
                     >
                       <Zap className="w-3.5 h-3.5 mr-1" />
-                      {isSimulating ? 'Simulating...' : 'Simulate Inbound Ticket'}
+                      {isSimulating ? 'Processing...' : 'Submit WhatsApp Event'}
                     </Button>
                   </div>
                 </div>

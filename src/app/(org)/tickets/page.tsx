@@ -19,7 +19,7 @@ export default function TicketsPage() {
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="text-xs px-3 py-1 font-semibold border-blue-200 dark:border-blue-900/50 text-blue-700 dark:text-blue-400">
-            Track C — Person 3 Module
+            Intake Queue
           </Badge>
         </div>
       </div>
