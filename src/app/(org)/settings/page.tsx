@@ -8,7 +8,7 @@ export const revalidate = 0;
 export default async function SettingsPage() {
   const supabase = createClient();
 
-  let orgConfig = {
+  const orgConfig = {
     orgName: 'ServiceIQ Enterprise',
     orgType: 'service_centre',
     dayStart: '09:00',
@@ -46,11 +46,11 @@ export default async function SettingsPage() {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-          <Settings className="w-6 h-6 text-blue-600" />
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+          <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
           Settings & Communication Gateway
         </h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
           Manage organisation profile, SLA targets, and Meta WhatsApp Business Cloud API parameters.
         </p>
       </div>

@@ -9,19 +9,15 @@ import {
   Wrench,
   Star,
   CheckCircle2,
-  Calendar,
   Layers,
   ArrowRight,
   ExternalLink,
   RefreshCw,
   MessageSquare,
-  ShieldAlert,
   Send,
   Zap,
   Check,
   Search,
-  Filter,
-  Sparkles,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -80,7 +76,7 @@ export function AnimatedDashboard({
   initialRenewals,
 }: AnimatedDashboardProps) {
   const [stats, setStats] = useState<DashboardStats>(initialStats);
-  const [breaches, setBreaches] = useState<BreachItem[]>(initialBreaches);
+  const [breaches] = useState<BreachItem[]>(initialBreaches);
   const [overduePMs] = useState<OverduePMItem[]>(initialOverduePMs);
   const [renewals] = useState<RenewalItem[]>(initialRenewals);
 
@@ -708,18 +704,18 @@ export function AnimatedDashboard({
               initial={{ scale: 0.95, y: 10 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 10 }}
-              className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200"
+              className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
                     <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                       Customer Service Gateway
                     </h3>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
                       Direct automated messaging channel
                     </p>
                   </div>
@@ -727,7 +723,7 @@ export function AnimatedDashboard({
                 <button
                   type="button"
                   onClick={() => setShowSimulator(false)}
-                  className="text-slate-400 hover:text-slate-600 text-lg font-bold p-1"
+                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg font-bold p-1"
                 >
                   ✕
                 </button>
@@ -735,7 +731,7 @@ export function AnimatedDashboard({
 
               <form onSubmit={handleSimulateWhatsApp} className="mt-4 space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     Customer WhatsApp Number
                   </label>
                   <input
@@ -744,7 +740,7 @@ export function AnimatedDashboard({
                     onChange={(e) => setSimPhone(e.target.value)}
                     required
                     placeholder="+91 98200 12345"
-                    className="w-full text-xs rounded-lg border border-slate-300 p-2.5 outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 p-2.5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-emerald-500"
                   />
                   <span className="text-[10px] text-slate-400 mt-1 block">
                     Format: +91XXXXXXXXXX
@@ -752,7 +748,7 @@ export function AnimatedDashboard({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                     Customer Complaint Message
                   </label>
                   <textarea
@@ -761,12 +757,12 @@ export function AnimatedDashboard({
                     onChange={(e) => setSimText(e.target.value)}
                     required
                     placeholder="Describe equipment malfunction..."
-                    className="w-full text-xs rounded-lg border border-slate-300 p-2.5 outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 p-2.5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-emerald-500"
                   />
                 </div>
 
                 {simStatus && (
-                  <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800">
+                  <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300">
                     {simStatus}
                   </div>
                 )}
@@ -775,31 +771,31 @@ export function AnimatedDashboard({
                   <div
                     className={`p-3 rounded-lg text-xs border ${
                       testResult.success
-                        ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-                        : 'bg-amber-50 border-amber-200 text-amber-900'
+                        ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300'
+                        : 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-300'
                     }`}
                   >
                     <div className="font-bold flex items-center gap-1.5 mb-1">
                       {testResult.success ? (
                         <>
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                           <span>Delivery Succeeded!</span>
                         </>
                       ) : (
                         <>
-                          <AlertTriangle className="w-4 h-4 text-amber-600" />
+                          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                           <span>WhatsApp Configuration Notice</span>
                         </>
                       )}
                     </div>
                     <p>{testResult.message}</p>
                     {testResult.tip && (
-                      <p className="mt-1 font-semibold text-amber-800">
+                      <p className="mt-1 font-semibold text-amber-800 dark:text-amber-400">
                         Fix: {testResult.tip}
                       </p>
                     )}
                     {testResult.instructions && (
-                      <ul className="mt-2 space-y-1 list-disc list-inside text-[11px] text-amber-900 font-mono">
+                      <ul className="mt-2 space-y-1 list-disc list-inside text-[11px] text-amber-900 dark:text-amber-300 font-mono">
                         {testResult.instructions.map((step: string, i: number) => (
                           <li key={i}>{step}</li>
                         ))}
@@ -808,16 +804,16 @@ export function AnimatedDashboard({
                   </div>
                 )}
 
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
                     disabled={isTestingLive}
                     onClick={handleTestLiveWhatsApp}
-                    className="text-xs text-emerald-700 border-emerald-300 hover:bg-emerald-50"
+                    className="text-xs text-emerald-700 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
                   >
-                    <Send className="w-3.5 h-3.5 mr-1 text-emerald-600" />
+                    <Send className="w-3.5 h-3.5 mr-1 text-emerald-600 dark:text-emerald-400" />
                     {isTestingLive ? 'Testing Delivery...' : 'Test Delivery to My Phone'}
                   </Button>
 
@@ -827,6 +823,7 @@ export function AnimatedDashboard({
                       variant="ghost"
                       size="sm"
                       onClick={() => setShowSimulator(false)}
+                      className="dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800"
                     >
                       Close
                     </Button>

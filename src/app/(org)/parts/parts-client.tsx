@@ -81,52 +81,52 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
       {isAdding && (
         <form
           onSubmit={handleAddPart}
-          className="p-5 rounded-xl border border-blue-200 bg-blue-50/40 shadow-sm space-y-4"
+          className="p-5 rounded-xl border border-blue-200 dark:border-slate-800 bg-blue-50/40 dark:bg-slate-900/90 shadow-sm space-y-4"
         >
-          <div className="text-xs font-bold text-blue-900 uppercase tracking-wider">
+          <div className="text-xs font-bold text-blue-900 dark:text-blue-400 uppercase tracking-wider">
             Register New Spare Part
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Part Number</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Part Number</label>
               <input
                 type="text"
                 value={newPartNo}
                 onChange={(e) => setNewPartNo(e.target.value)}
                 placeholder="e.g. COMP-1.5T"
-                className="w-full text-xs rounded-lg border border-slate-300 p-2 bg-white outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 p-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Part Name *</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Part Name *</label>
               <input
                 type="text"
                 required
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Rotary Compressor 1.5 Ton"
-                className="w-full text-xs rounded-lg border border-slate-300 p-2 bg-white outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 p-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Unit of Measure (UOM)</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Unit of Measure (UOM)</label>
               <input
                 type="text"
                 value={newUom}
                 onChange={(e) => setNewUom(e.target.value)}
                 placeholder="e.g. piece, kg, metre"
-                className="w-full text-xs rounded-lg border border-slate-300 p-2 bg-white outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 p-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Sell Price (₹)</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Sell Price (₹)</label>
               <input
                 type="number"
                 step="0.01"
                 value={newPrice}
                 onChange={(e) => setNewPrice(e.target.value)}
                 placeholder="0.00"
-                className="w-full text-xs rounded-lg border border-slate-300 p-2 bg-white outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 p-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -136,6 +136,7 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
               variant="outline"
               size="sm"
               onClick={() => setIsAdding(false)}
+              className="dark:border-slate-700 dark:hover:bg-slate-800 dark:text-slate-300"
             >
               Cancel
             </Button>
@@ -147,7 +148,7 @@ export function PartsClient({ initialParts, orgId }: PartsClientProps) {
       )}
 
       {/* Parts Table */}
-      <Card className="shadow-sm">
+      <Card className="shadow-xs border border-slate-200 dark:border-slate-800">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">

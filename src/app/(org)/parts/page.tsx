@@ -71,11 +71,11 @@ export default async function PartsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-          <Package className="w-6 h-6 text-blue-600" />
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+          <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
           Spare Parts Catalogue
         </h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
           Catalog of spare parts and standard prices. Technicians use these during job closeout to calculate AMC coverage or chargeable invoices.
         </p>
       </div>

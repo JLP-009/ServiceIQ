@@ -158,36 +158,36 @@ export default async function TechniciansPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Users className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             Field Technicians Roster
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Track active workforce skills, job assignments, SLA compliance, and customer satisfaction.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Badge variant="outline" className="text-xs px-3 py-1 font-semibold">
+          <Badge variant="outline" className="text-xs px-3 py-1 font-semibold dark:border-slate-800 dark:text-slate-300">
             {technicians.length} Active Field Agents
           </Badge>
         </div>
       </div>
 
       {/* Main Table Card */}
-      <Card className="shadow-sm">
-        <CardHeader className="pb-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <Card className="shadow-xs border border-slate-200 dark:border-slate-800">
+        <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <CardTitle className="text-base font-semibold">Performance & Capabilities</CardTitle>
-            <CardDescription className="text-xs">
+            <CardTitle className="text-base font-semibold text-slate-900 dark:text-white">Performance & Capabilities</CardTitle>
+            <CardDescription className="text-xs text-slate-500 dark:text-slate-400">
               Verified field metrics and customer ratings
             </CardDescription>
           </div>
-          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 w-64 text-xs">
+          <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 w-64 text-xs">
             <Search className="w-3.5 h-3.5 text-slate-400" />
             <input
               type="text"
               placeholder="Filter by name, skill, or city..."
-              className="bg-transparent border-none outline-none text-slate-900 w-full placeholder:text-slate-400 text-xs"
+              className="bg-transparent border-none outline-none text-slate-900 dark:text-white w-full placeholder:text-slate-400 dark:placeholder:text-slate-500 text-xs"
             />
           </div>
         </CardHeader>

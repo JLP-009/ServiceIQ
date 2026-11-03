@@ -51,10 +51,10 @@ export function RatingForm({ token }: { token: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 rounded-xl border border-slate-200 bg-white shadow-sm space-y-4">
+    <form onSubmit={handleSubmit} className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs space-y-4">
       <div>
-        <h4 className="text-sm font-bold text-slate-900">Rate your service experience</h4>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <h4 className="text-sm font-bold text-slate-900 dark:text-white">Rate your service experience</h4>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           How satisfied were you with the technician and the repair?
         </p>
       </div>
@@ -68,25 +68,25 @@ export function RatingForm({ token }: { token: string }) {
             onClick={() => setRating(star)}
             onMouseEnter={() => setHoverRating(star)}
             onMouseLeave={() => setHoverRating(0)}
-            className="p-1 text-slate-300 hover:scale-110 transition-transform focus:outline-none"
+            className="p-1 text-slate-300 dark:text-slate-600 hover:scale-110 transition-transform focus:outline-none"
           >
             <Star
               className={`w-7 h-7 ${
                 (hoverRating || rating) >= star
                   ? 'text-amber-400 fill-amber-400'
-                  : 'text-slate-200'
+                  : 'text-slate-200 dark:text-slate-700'
               }`}
             />
           </button>
         ))}
-        <span className="ml-3 text-xs font-semibold text-slate-700">
+        <span className="ml-3 text-xs font-semibold text-slate-700 dark:text-slate-300">
           {rating === 5 ? 'Excellent' : rating === 4 ? 'Good' : rating === 3 ? 'Average' : 'Needs Improvement'}
         </span>
       </div>
 
       {/* Comments */}
       <div>
-        <label htmlFor="feedback" className="block text-xs font-medium text-slate-700 mb-1">
+        <label htmlFor="feedback" className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
           Additional comments (optional)
         </label>
         <textarea
@@ -95,7 +95,7 @@ export function RatingForm({ token }: { token: string }) {
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
           placeholder="Technician arrived on time, resolved the issue quickly..."
-          className="w-full text-xs rounded-lg border border-slate-300 p-2.5 outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-slate-400"
+          className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white p-2.5 outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
       </div>
 

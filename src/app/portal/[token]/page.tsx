@@ -144,17 +144,17 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
     Boolean(workflowState?.is_terminal) || displayTicket.status === 'closed';
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 pb-12 font-sans">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white pb-12 font-sans transition-colors">
       {/* Top Navbar */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 px-4 py-3.5 shadow-sm">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 px-4 py-3.5 shadow-xs">
         <div className="max-w-xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <span className="font-bold text-slate-900 text-base">ServiceIQ</span>
+            <span className="font-bold text-slate-900 dark:text-white text-base">ServiceIQ</span>
           </div>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
             {displayTicket.ticket_no}
           </span>
         </div>
@@ -163,9 +163,9 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
       {/* Main Content Container */}
       <main className="max-w-xl mx-auto px-4 pt-6 space-y-6">
         {/* Status Card */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs uppercase tracking-wider font-bold text-slate-500">
+            <span className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
               Current Ticket Status
             </span>
             <Badge
@@ -182,11 +182,11 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
             </Badge>
           </div>
 
-          <h2 className="text-lg font-bold text-slate-900 leading-snug">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white leading-snug">
             {displayTicket.fault_description || 'General Service Request'}
           </h2>
 
-          <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-1.5">
               <Calendar className="w-4 h-4 text-slate-400" />
               <span>Reported: {new Date(displayTicket.reported_at).toLocaleDateString()}</span>
@@ -200,24 +200,24 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
 
         {/* Assigned Technician Card */}
         {assignedTech && (
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs">
             <div className="text-xs uppercase font-bold text-slate-400 mb-3 tracking-wider">
               Assigned Field Technician
             </div>
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-base shadow-inner">
+              <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 flex items-center justify-center font-bold text-base shadow-inner">
                 <User className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <div className="font-bold text-slate-900 text-sm">{assignedTech.full_name}</div>
-                <div className="text-xs text-slate-500 mt-0.5">
+                <div className="font-bold text-slate-900 dark:text-white text-sm">{assignedTech.full_name}</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   Verified ServiceIQ Technician
                 </div>
               </div>
               {assignedTech.phone && (
                 <a
                   href={`tel:${assignedTech.phone}`}
-                  className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold hover:bg-blue-100 transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 text-xs font-semibold hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors"
                 >
                   Call
                 </a>
@@ -227,19 +227,19 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
         )}
 
         {/* Job Timeline Stepper */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs">
           <div className="text-xs uppercase font-bold text-slate-400 mb-4 tracking-wider flex items-center gap-2">
-            <Wrench className="w-3.5 h-3.5 text-slate-500" />
+            <Wrench className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
             Live Service Progress
           </div>
 
-          <div className="relative pl-6 space-y-6 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+          <div className="relative pl-6 space-y-6 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
             {primaryJob?.job_status_event && primaryJob.job_status_event.length > 0 ? (
               primaryJob.job_status_event.map((event: any, idx: number) => (
                 <div key={event.event_id || idx} className="relative group">
                   {/* Step indicator */}
-                  <span className="absolute -left-6 top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow-sm flex items-center justify-center" />
-                  <div className="font-semibold text-xs text-slate-900">
+                  <span className="absolute -left-6 top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white dark:border-slate-900 shadow-xs flex items-center justify-center" />
+                  <div className="font-semibold text-xs text-slate-900 dark:text-white">
                     {event.workflow_state?.label || 'Status Updated'}
                   </div>
                   <div className="text-[11px] text-slate-400 mt-0.5">
@@ -254,8 +254,8 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
               ))
             ) : (
               <div className="relative">
-                <span className="absolute -left-6 top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white shadow-sm" />
-                <div className="font-semibold text-xs text-slate-900">Ticket Acknowledged</div>
+                <span className="absolute -left-6 top-1 w-5 h-5 rounded-full bg-blue-600 border-4 border-white dark:border-slate-900 shadow-xs" />
+                <div className="font-semibold text-xs text-slate-900 dark:text-white">Ticket Acknowledged</div>
                 <div className="text-[11px] text-slate-400 mt-0.5">
                   Technician assignment in progress.
                 </div>
@@ -268,9 +268,9 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
         {isJobClosed && (
           <div>
             {primaryJob?.customer_rating ? (
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm text-center">
+              <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs text-center">
                 <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto mb-2" />
-                <h4 className="font-bold text-slate-900 text-sm">Review Submitted</h4>
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm">Review Submitted</h4>
                 <div className="flex items-center justify-center gap-1 mt-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
@@ -278,13 +278,13 @@ export default async function CustomerPortalPage({ params }: PortalPageProps) {
                       className={`w-5 h-5 ${
                         star <= Number(primaryJob.customer_rating)
                           ? 'text-amber-400 fill-amber-400'
-                          : 'text-slate-200'
+                          : 'text-slate-200 dark:text-slate-700'
                       }`}
                     />
                   ))}
                 </div>
                 {primaryJob.customer_feedback && (
-                  <p className="text-xs text-slate-600 italic mt-3 bg-slate-50 p-3 rounded-lg">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 italic mt-3 bg-slate-50 dark:bg-slate-800/80 p-3 rounded-lg">
                     &ldquo;{primaryJob.customer_feedback}&rdquo;
                   </p>
                 )}

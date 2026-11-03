@@ -1,19 +1,52 @@
 import React from 'react';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, Activity, ArrowUpRight } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export default function JobsPage() {
   return (
-    <div className="space-y-4 max-w-7xl mx-auto">
-      <div className="flex items-center gap-3">
-        <Briefcase className="w-6 h-6 text-blue-600" />
-        <h1 className="text-2xl font-bold text-slate-900">Field Jobs</h1>
+    <div className="space-y-6 max-w-7xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            Field Jobs Execution
+          </h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Work order lifecycle, state machine transitions, parts usage, and SLA tracking.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-xs px-3 py-1 font-semibold border-blue-200 dark:border-blue-900/50 text-blue-700 dark:text-blue-400">
+            Track C & D — Execution Module
+          </Badge>
+        </div>
       </div>
-      <p className="text-sm text-slate-500">
-        Assigned to Track C & D. State machine transitions, parts usage, and SLA tracking.
-      </p>
-      <div className="p-8 border border-dashed border-slate-300 rounded-xl bg-white text-center text-slate-400 text-sm">
-        List of all active and completed field repair jobs.
-      </div>
+
+      <Card className="shadow-xs border-dashed border-2 border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/40">
+        <CardContent className="p-12 text-center flex flex-col items-center justify-center space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <Activity className="w-6 h-6" />
+          </div>
+          <div className="max-w-md">
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+              Field Work Order Operations
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              Manages the complete lifecycle from dispatch to customer sign-off, enforcing strict state machine transitions and real-time SLA countdowns.
+            </p>
+          </div>
+          <div className="pt-2 flex items-center gap-3">
+            <Link
+              href="/parts"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+            >
+              Check Spare Parts Inventory <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

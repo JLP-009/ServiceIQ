@@ -70,11 +70,11 @@ export default async function RenewalsPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <RefreshCw className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            <RefreshCw className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             AMC Renewal Pipeline
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Tracking contracts approaching expiry. Reminders triggered weekly via Meta WhatsApp API Edge Function.
           </p>
         </div>
@@ -85,10 +85,10 @@ export default async function RenewalsPage() {
         </div>
       </div>
 
-      <Card className="shadow-sm">
-        <CardHeader className="pb-3 border-b border-slate-100">
-          <CardTitle className="text-base font-semibold">Upcoming Contract Renewals</CardTitle>
-          <CardDescription className="text-xs">
+      <Card className="shadow-xs border border-slate-200 dark:border-slate-800">
+        <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
+          <CardTitle className="text-base font-semibold text-slate-900 dark:text-white">Upcoming Contract Renewals</CardTitle>
+          <CardDescription className="text-xs text-slate-500 dark:text-slate-400">
             Verified contract lifecycle and upcoming renewal milestones
           </CardDescription>
         </CardHeader>
