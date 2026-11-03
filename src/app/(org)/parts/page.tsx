@@ -1,5 +1,5 @@
 import React from 'react';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { Package } from 'lucide-react';
 import { PartsClient } from './parts-client';
 import type { Part } from '@/types';
@@ -53,17 +53,19 @@ export default async function PartsPage() {
     },
   ];
 
-  try {
-    const { data } = await supabase
-      .from('part')
-      .select('*')
-      .order('name');
+  if (isSupabaseConfigured()) {
+    try {
+      const { data } = await supabase
+        .from('part')
+        .select('*')
+        .order('name');
 
-    if (data && data.length > 0) {
-      parts = data as Part[];
+      if (data && data.length > 0) {
+        parts = data as Part[];
+      }
+    } catch (err) {
+      console.warn('Using default demo parts catalogue:', err);
     }
-  } catch (err) {
-    console.warn('Using default demo parts catalogue:', err);
   }
 
   return (

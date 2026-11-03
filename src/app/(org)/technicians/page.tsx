@@ -1,5 +1,5 @@
 import React from 'react';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import {
   Users,
   Star,
@@ -92,8 +92,9 @@ export default async function TechniciansPage() {
     },
   ];
 
-  try {
-    const { data: members } = await supabase
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: members } = await supabase
       .from('org_membership')
       .select(`
         membership_id,
@@ -147,8 +148,9 @@ export default async function TechniciansPage() {
         };
       });
     }
-  } catch (err) {
-    console.warn('TechniciansPage using fallback data:', err);
+    } catch (err) {
+      console.warn('TechniciansPage using fallback data:', err);
+    }
   }
 
   return (

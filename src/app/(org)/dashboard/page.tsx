@@ -1,5 +1,5 @@
 import React from 'react';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { AnimatedDashboard } from '@/components/dashboard/animated-dashboard';
 
 export const revalidate = 0; // Fresh KPIs on load
@@ -101,9 +101,10 @@ export default async function DashboardPage() {
     },
   ];
 
-  try {
-    const [ticketsRes, jobsRes, pmVisitsRes, renewalsRes, breachesRes, overduePmRes, perfRes] =
-      await Promise.all([
+  if (isSupabaseConfigured()) {
+    try {
+      const [ticketsRes, jobsRes, pmVisitsRes, renewalsRes, breachesRes, overduePmRes, perfRes] =
+        await Promise.all([
         supabase.from('ticket').select('ticket_id, status', { count: 'exact' }).neq('status', 'closed'),
         supabase.from('job').select('job_id, breached, workflow_state(is_terminal)', { count: 'exact' }),
         supabase.from('pm_visit').select('pm_visit_id', { count: 'exact' }).eq('status', 'pending').lte('due_date', thirtyDaysFromNow),
@@ -205,8 +206,9 @@ export default async function DashboardPage() {
         status: p.status,
       }));
     }
-  } catch (error) {
-    console.warn('Dashboard using fallback stats:', error);
+    } catch (error) {
+      console.warn('Dashboard using fallback stats:', error);
+    }
   }
 
   return (

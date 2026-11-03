@@ -13,6 +13,8 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 export const metadata: Metadata = {
   title: "ServiceIQ — Field Service & AMC Management Platform",
   description: "Intelligent dispatch, preventive maintenance, and contract management",
@@ -28,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

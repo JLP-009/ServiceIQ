@@ -1,5 +1,5 @@
 import React from 'react';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { RefreshCw } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -49,13 +49,15 @@ export default async function RenewalsPage() {
     },
   ];
 
-  try {
-    const { data } = await supabase.from('v_renewal_pipeline').select('*');
-    if (data && data.length > 0) {
-      renewals = data as RenewalPipelineItem[];
+  if (isSupabaseConfigured()) {
+    try {
+      const { data } = await supabase.from('v_renewal_pipeline').select('*');
+      if (data && data.length > 0) {
+        renewals = data as RenewalPipelineItem[];
+      }
+    } catch (err) {
+      console.warn('RenewalsPage using fallback data:', err);
     }
-  } catch (err) {
-    console.warn('RenewalsPage using fallback data:', err);
   }
 
   const expiringIn30Days = renewals.filter((r) => r.days_until_expiry <= 30);

@@ -285,20 +285,20 @@ export function AnimatedDashboard({
           whileHover={{ y: -4 }}
           transition={{ type: 'spring', stiffness: 350 }}
         >
-          <Card className="border border-slate-200/90 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-blue-50/20">
+          <Card className="border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-blue-50/20 dark:from-slate-900 dark:to-blue-950/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Open Tickets
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-blue-100/80 text-blue-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-blue-100/80 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                   <Layers className="w-4 h-4" />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-slate-900 mt-2">
+              <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
                 {stats.openTickets}
               </div>
-              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-blue-700 font-medium">
+              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-blue-700 dark:text-blue-400 font-medium">
                 <Zap className="w-3 h-3 text-blue-500" />
                 Inbound requests
               </div>
@@ -311,20 +311,20 @@ export function AnimatedDashboard({
           whileHover={{ y: -4 }}
           transition={{ type: 'spring', stiffness: 350 }}
         >
-          <Card className="border border-slate-200/90 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-indigo-50/20">
+          <Card className="border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-indigo-50/20 dark:from-slate-900 dark:to-indigo-950/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   In Progress
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-indigo-100/80 text-indigo-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-indigo-100/80 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                   <Wrench className="w-4 h-4" />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-slate-900 mt-2">
+              <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
                 {stats.jobsInProgress}
               </div>
-              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-indigo-700 font-medium">
+              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-indigo-700 dark:text-indigo-400 font-medium">
                 <span>Active field jobs</span>
               </div>
             </CardContent>
@@ -336,20 +336,20 @@ export function AnimatedDashboard({
           whileHover={{ y: -4 }}
           transition={{ type: 'spring', stiffness: 350 }}
         >
-          <Card className="border border-red-200 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-red-50/30">
+          <Card className="border border-red-200 dark:border-red-900/60 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-red-50/30 dark:from-slate-900 dark:to-red-950/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-red-600">
+                <span className="text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
                   SLA Breaches
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center animate-pulse">
+                <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 flex items-center justify-center animate-pulse">
                   <AlertTriangle className="w-4 h-4" />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-red-600 mt-2">
+              <div className="text-3xl font-extrabold text-red-600 dark:text-red-400 mt-2">
                 {stats.slaBreaches}
               </div>
-              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-red-700 font-semibold">
+              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-red-700 dark:text-red-400 font-semibold">
                 <span>Requires dispatch attention</span>
               </div>
             </CardContent>
@@ -361,20 +361,20 @@ export function AnimatedDashboard({
           whileHover={{ y: -4 }}
           transition={{ type: 'spring', stiffness: 350 }}
         >
-          <Card className="border border-slate-200/90 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-amber-50/20">
+          <Card className="border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-amber-50/20 dark:from-slate-900 dark:to-amber-950/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   PM Visits Due
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center">
                   <Clock className="w-4 h-4" />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-slate-900 mt-2">
+              <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
                 {stats.pmVisitsDueThisMonth}
               </div>
-              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-amber-700 font-medium">
+              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-amber-700 dark:text-amber-400 font-medium">
                 <span>Next 30 calendar days</span>
               </div>
             </CardContent>
@@ -386,20 +386,20 @@ export function AnimatedDashboard({
           whileHover={{ y: -4 }}
           transition={{ type: 'spring', stiffness: 350 }}
         >
-          <Card className="border border-amber-200 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-amber-50/30">
+          <Card className="border border-amber-200 dark:border-amber-900/60 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-amber-50/30 dark:from-slate-900 dark:to-amber-950/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-800">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400">
                   Revenue at Risk
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
                   <TrendingDown className="w-4 h-4" />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-amber-800 mt-2">
+              <div className="text-3xl font-extrabold text-amber-800 dark:text-amber-400 mt-2">
                 ₹{(stats.revenueAtRisk / 1000).toFixed(0)}k
               </div>
-              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-amber-800 font-medium">
+              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-amber-800 dark:text-amber-400 font-medium">
                 <span>Expiring in 30 days</span>
               </div>
             </CardContent>
@@ -411,21 +411,21 @@ export function AnimatedDashboard({
           whileHover={{ y: -4 }}
           transition={{ type: 'spring', stiffness: 350 }}
         >
-          <Card className="border border-slate-200/90 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-emerald-50/20">
+          <Card className="border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all rounded-xl bg-gradient-to-b from-white to-emerald-50/20 dark:from-slate-900 dark:to-emerald-950/20">
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   CSAT Rating
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-500 flex items-center justify-center">
                   <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                 </div>
               </div>
-              <div className="text-3xl font-extrabold text-slate-900 mt-2">
+              <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
                 {stats.avgRating} <span className="text-xs text-slate-400 font-normal">/ 5.0</span>
               </div>
-              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-emerald-700 font-semibold">
-                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+              <div className="flex items-center gap-1.5 mt-2 text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold">
+                <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 96% satisfaction rate
               </div>
             </CardContent>
@@ -435,15 +435,15 @@ export function AnimatedDashboard({
 
       {/* SLA & PM Health Meters */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-colors">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 SLA Compliance Rate
               </span>
-              <span className="text-sm font-extrabold text-emerald-600">92.8%</span>
+              <span className="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">92.8%</span>
             </div>
-            <div className="w-full bg-slate-100 h-2.5 rounded-full mt-2.5 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full mt-2.5 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '92.8%' }}
@@ -452,20 +452,20 @@ export function AnimatedDashboard({
               />
             </div>
           </div>
-          <p className="text-[11px] text-slate-500 mt-3">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3">
             Target: ≥ 90%. Computed from resolved tickets against contracted resolution times.
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-colors">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 PM Completion Pace
               </span>
-              <span className="text-sm font-extrabold text-blue-600">84.5%</span>
+              <span className="text-sm font-extrabold text-blue-600 dark:text-blue-400">84.5%</span>
             </div>
-            <div className="w-full bg-slate-100 h-2.5 rounded-full mt-2.5 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full mt-2.5 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '84.5%' }}
@@ -474,20 +474,20 @@ export function AnimatedDashboard({
               />
             </div>
           </div>
-          <p className="text-[11px] text-slate-500 mt-3">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3">
             Grace period honored: 15 days before flagging as breached.
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between">
+        <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-colors">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Contract Renewal Health
               </span>
-              <span className="text-sm font-extrabold text-indigo-600">88.0%</span>
+              <span className="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">88.0%</span>
             </div>
-            <div className="w-full bg-slate-100 h-2.5 rounded-full mt-2.5 overflow-hidden">
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full mt-2.5 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '88%' }}
@@ -496,24 +496,24 @@ export function AnimatedDashboard({
               />
             </div>
           </div>
-          <p className="text-[11px] text-slate-500 mt-3">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3">
             WhatsApp weekly reminder function sends alerts 30 days prior to contract expiry.
           </p>
         </div>
       </div>
 
       {/* Main Interactive Table & Filter Console */}
-      <Card className="border border-slate-200/90 shadow-sm overflow-hidden rounded-2xl">
+      <Card className="border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden rounded-2xl transition-colors">
         {/* Table Navigation Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           {/* Animated Tabs */}
-          <div className="flex items-center gap-1.5 p-1 bg-slate-200/70 rounded-xl">
+          <div className="flex items-center gap-1.5 p-1 bg-slate-200/70 dark:bg-slate-800 rounded-xl">
             <button
               onClick={() => setActiveTab('breaches')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'breaches'
-                  ? 'bg-white text-red-600 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-red-600 dark:text-red-400 shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
               }`}
             >
               Active SLA Breaches ({breaches.length})
@@ -522,8 +522,8 @@ export function AnimatedDashboard({
               onClick={() => setActiveTab('overdue_pm')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'overdue_pm'
-                  ? 'bg-white text-amber-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-amber-700 dark:text-amber-400 shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
               }`}
             >
               Overdue PM Visits ({overduePMs.length})
@@ -532,8 +532,8 @@ export function AnimatedDashboard({
               onClick={() => setActiveTab('renewals')}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'renewals'
-                  ? 'bg-white text-indigo-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-400 shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
               }`}
             >
               Expiring Contracts ({renewals.length})
@@ -541,14 +541,14 @@ export function AnimatedDashboard({
           </div>
 
           {/* Search Box */}
-          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 w-full sm:w-64 text-xs shadow-inner">
+          <div className="flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 w-full sm:w-64 text-xs shadow-inner">
             <Search className="w-3.5 h-3.5 text-slate-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search table rows..."
-              className="bg-transparent border-none outline-none text-slate-900 w-full placeholder:text-slate-400 text-xs"
+              className="bg-transparent border-none outline-none text-slate-900 dark:text-white w-full placeholder:text-slate-400 text-xs"
             />
           </div>
         </div>
@@ -557,7 +557,7 @@ export function AnimatedDashboard({
         <div className="overflow-x-auto">
           {activeTab === 'breaches' && (
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="py-3 px-4">Job ID</th>
                   <th className="py-3 px-4">Ticket</th>
@@ -567,7 +567,7 @@ export function AnimatedDashboard({
                   <th className="py-3 px-4 text-right">Dispatch Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredBreaches.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-400">
@@ -576,16 +576,16 @@ export function AnimatedDashboard({
                   </tr>
                 ) : (
                   filteredBreaches.map((b) => (
-                    <tr key={b.job_id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-slate-900">{b.job_no}</td>
-                      <td className="py-3.5 px-4 text-slate-600">{b.ticket_no}</td>
-                      <td className="py-3.5 px-4 text-slate-700 font-medium">{b.tech_name}</td>
+                    <tr key={b.job_id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-slate-900 dark:text-white">{b.job_no}</td>
+                      <td className="py-3.5 px-4 text-slate-600 dark:text-slate-400">{b.ticket_no}</td>
+                      <td className="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-medium">{b.tech_name}</td>
                       <td className="py-3.5 px-4">
                         <Badge variant="destructive" className="font-medium text-[10px]">
                           {b.status}
                         </Badge>
                       </td>
-                      <td className="py-3.5 px-4 text-red-600 font-semibold">
+                      <td className="py-3.5 px-4 text-red-600 dark:text-red-400 font-semibold">
                         {b.resolution_due
                           ? new Date(b.resolution_due).toLocaleTimeString([], {
                               hour: '2-digit',
@@ -596,7 +596,7 @@ export function AnimatedDashboard({
                       <td className="py-3.5 px-4 text-right">
                         <Link
                           href="/dispatch"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-[11px] font-semibold hover:bg-blue-100 transition-colors"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 text-[11px] font-semibold hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
                         >
                           Reassign <ArrowRight className="w-3 h-3" />
                         </Link>
@@ -610,7 +610,7 @@ export function AnimatedDashboard({
 
           {activeTab === 'overdue_pm' && (
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="py-3 px-4">Contract</th>
                   <th className="py-3 px-4">Due Date</th>
@@ -619,7 +619,7 @@ export function AnimatedDashboard({
                   <th className="py-3 px-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredPMs.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="py-8 text-center text-slate-400">
@@ -628,10 +628,10 @@ export function AnimatedDashboard({
                   </tr>
                 ) : (
                   filteredPMs.map((p) => (
-                    <tr key={p.pm_visit_id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-slate-900">{p.contract_no}</td>
-                      <td className="py-3.5 px-4 text-amber-700 font-semibold">{p.due_date}</td>
-                      <td className="py-3.5 px-4 text-slate-500">{p.grace_days} days allowed</td>
+                    <tr key={p.pm_visit_id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-slate-900 dark:text-white">{p.contract_no}</td>
+                      <td className="py-3.5 px-4 text-amber-700 dark:text-amber-400 font-semibold">{p.due_date}</td>
+                      <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400">{p.grace_days} days allowed</td>
                       <td className="py-3.5 px-4">
                         <Badge variant="warning" className="font-medium text-[10px]">
                           {p.status}
@@ -640,7 +640,7 @@ export function AnimatedDashboard({
                       <td className="py-3.5 px-4 text-right">
                         <Link
                           href="/dispatch"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-50 text-amber-800 text-[11px] font-semibold hover:bg-amber-100 transition-colors"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 text-[11px] font-semibold hover:bg-amber-100 dark:hover:bg-amber-900 transition-colors"
                         >
                           Schedule Visit <ExternalLink className="w-3 h-3" />
                         </Link>
@@ -654,7 +654,7 @@ export function AnimatedDashboard({
 
           {activeTab === 'renewals' && (
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="py-3 px-4">Contract No</th>
                   <th className="py-3 px-4">Customer</th>
@@ -664,7 +664,7 @@ export function AnimatedDashboard({
                   <th className="py-3 px-4 text-right">Annual Value</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredRenewals.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-400">
@@ -673,17 +673,17 @@ export function AnimatedDashboard({
                   </tr>
                 ) : (
                   filteredRenewals.map((r) => (
-                    <tr key={r.contract_id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-slate-900">{r.contract_no}</td>
-                      <td className="py-3.5 px-4 font-medium text-slate-800">{r.customer_name}</td>
-                      <td className="py-3.5 px-4 text-slate-500 font-mono">{r.customer_phone || '—'}</td>
-                      <td className="py-3.5 px-4 text-slate-600">{r.valid_to}</td>
+                    <tr key={r.contract_id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-slate-900 dark:text-white">{r.contract_no}</td>
+                      <td className="py-3.5 px-4 font-medium text-slate-800 dark:text-slate-200">{r.customer_name}</td>
+                      <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 font-mono">{r.customer_phone || '—'}</td>
+                      <td className="py-3.5 px-4 text-slate-600 dark:text-slate-400">{r.valid_to}</td>
                       <td className="py-3.5 px-4">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300">
                           {r.days_until_expiry} days
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-right font-extrabold text-slate-900">
+                      <td className="py-3.5 px-4 text-right font-extrabold text-slate-900 dark:text-white">
                         ₹{Number(r.annual_value).toLocaleString('en-IN')}
                       </td>
                     </tr>

@@ -10,11 +10,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'default', ...props }, ref) => {
     const variants = {
       default: 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm',
-      secondary: 'bg-slate-100 text-slate-900 hover:bg-slate-200',
+      secondary: 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-700',
       destructive: 'bg-red-600 text-white hover:bg-red-700',
-      outline: 'border border-slate-300 bg-white hover:bg-slate-50 text-slate-800',
-      ghost: 'hover:bg-slate-100 text-slate-700',
-      link: 'text-blue-600 underline-offset-4 hover:underline',
+      outline: 'border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200',
+      ghost: 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300',
+      link: 'text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline',
     };
 
     const sizes = {

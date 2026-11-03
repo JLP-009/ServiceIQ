@@ -1,5 +1,5 @@
 import React from 'react';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { Settings } from 'lucide-react';
 import { SettingsClient } from './settings-client';
 
@@ -23,22 +23,24 @@ export default async function SettingsPage() {
     appUrl: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   };
 
-  try {
-    const { data: org } = await supabase
-      .from('organisation')
-      .select('name, org_type, day_start, day_end, working_days')
-      .limit(1)
-      .maybeSingle();
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: org } = await supabase
+        .from('organisation')
+        .select('name, org_type, day_start, day_end, working_days')
+        .limit(1)
+        .maybeSingle();
 
-    if (org) {
-      orgConfig.orgName = org.name || orgConfig.orgName;
-      orgConfig.orgType = org.org_type || orgConfig.orgType;
-      orgConfig.dayStart = org.day_start || orgConfig.dayStart;
-      orgConfig.dayEnd = org.day_end || orgConfig.dayEnd;
-      orgConfig.workingDays = org.working_days || orgConfig.workingDays;
+      if (org) {
+        orgConfig.orgName = org.name || orgConfig.orgName;
+        orgConfig.orgType = org.org_type || orgConfig.orgType;
+        orgConfig.dayStart = org.day_start || orgConfig.dayStart;
+        orgConfig.dayEnd = org.day_end || orgConfig.dayEnd;
+        orgConfig.workingDays = org.working_days || orgConfig.workingDays;
+      }
+    } catch (err) {
+      console.warn('Settings using default org config:', err);
     }
-  } catch (err) {
-    console.warn('Settings using default org config:', err);
   }
 
   return (

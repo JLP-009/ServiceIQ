@@ -1,5 +1,5 @@
 import React from 'react';
-import { createClient } from '@/lib/supabase/server';
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { OrgProvider } from '@/hooks/use-org';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
@@ -47,11 +47,12 @@ export default async function OrgLayout({
 }) {
   let orgContextValue: OrgContextValue = mockOrgContext;
 
-  try {
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
     if (user) {
       // Fetch person
@@ -87,10 +88,11 @@ export default async function OrgLayout({
   } catch (err) {
     console.warn('Using local fallback context for OrgLayout:', err);
   }
+}
 
   return (
     <OrgProvider value={orgContextValue}>
-      <div className="flex h-screen w-full bg-slate-50 overflow-hidden font-sans antialiased text-slate-900">
+      <div className="flex h-screen w-full bg-slate-50 dark:bg-slate-950 overflow-hidden font-sans antialiased text-slate-900 dark:text-slate-100 transition-colors">
         <Sidebar />
         <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
           <Header />
