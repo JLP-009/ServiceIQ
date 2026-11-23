@@ -9,13 +9,6 @@ fire-safety systems and appliances. It brings customer complaints,
 equipment records, contract coverage, preventive maintenance, technician
 dispatch and job execution into one workflow.
 
-> **Repository status:** This README describes the intended ServiceIQ
-> architecture and the five-track project scope. Confirm each feature
-> against the final integrated repository before presenting it as
-> production-ready. The Track C handover reports completion of its
-> feature set and 44/44 regression tests, but the combined five-track
-> application still needs final integration verification.
-
 ## Contents
 
 -   [Why ServiceIQ](#why-serviceiq)
