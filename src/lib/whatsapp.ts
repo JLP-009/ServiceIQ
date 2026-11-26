@@ -10,7 +10,14 @@ const getHeaders = () => ({
  * Normalises phone numbers (specifically handles Indian country code 91 if missing)
  */
 export function normalizePhone(to: string): string {
-  return to.replace(/\D/g, '').replace(/^0/, '91').replace(/^(?!91)/, '91');
+  const digits = to.replace(/\D/g, '');
+  if (digits.length === 10) {
+    return `91${digits}`;
+  }
+  if (digits.length === 11 && digits.startsWith('0')) {
+    return `91${digits.slice(1)}`;
+  }
+  return digits;
 }
 
 /**
